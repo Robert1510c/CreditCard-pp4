@@ -2,9 +2,10 @@ package pl.rCieplinski.creditCard;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 import static org.assertj.core.api.Assertions.*;
 
 public class AssertTest {
@@ -19,7 +20,7 @@ public class AssertTest {
     void testSomeListExpression() {
         var names = Collections.singleton("Robert");
 
-        assertThat(names);
+        assertThat(names).isUnmodifiable().hasSize(3).containsAll(Arrays.asList("Robert","Krzysztof"));
 
     }
 }
