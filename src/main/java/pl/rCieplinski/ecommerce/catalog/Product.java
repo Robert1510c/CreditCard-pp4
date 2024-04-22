@@ -19,7 +19,7 @@ public class Product {
     private final String description;
     private BigDecimal price;
 
-    public Product(UUID id, String name, String description) {
+    public Product(UUID id, String name, String description, BigDecimal bigDecimal) {
         this.id = id.toString();
         this.name = name;
         this.description = description;
