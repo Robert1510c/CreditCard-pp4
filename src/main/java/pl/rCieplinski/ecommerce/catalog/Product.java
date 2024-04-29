@@ -4,19 +4,22 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 public class Product {
-    private final String id;
+    private String id;
+
+    public Product() {
+    }
 
     public String getName() {
         return name;
     }
 
-    private final String name;
+    private String name;
 
     public String getDescription() {
         return description;
     }
 
-    private final String description;
+    private String description;
     private BigDecimal price;
 
     public Product(UUID id, String name, String description, BigDecimal bigDecimal) {
