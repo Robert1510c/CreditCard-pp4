@@ -10,8 +10,13 @@ public class HashMapProductStorage implements ProductStorage {
     }
 
     @Override
-    public List<Product> allProducts() {
+    public List<Product> getAllProducts() {
         return products.values().stream().toList();
+    }
+
+    @Override
+    public void setUpDatabase() {
+
     }
 
     @Override
@@ -20,7 +25,7 @@ public class HashMapProductStorage implements ProductStorage {
     }
 
     @Override
-    public Product getProductBy(String id) {
+    public Product getProductById(String id) {
         return products.get(id);
     }
 }

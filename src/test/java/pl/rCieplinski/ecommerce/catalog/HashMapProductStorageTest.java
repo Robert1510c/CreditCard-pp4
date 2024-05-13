@@ -15,7 +15,7 @@ public class HashMapProductStorageTest {
         ProductStorage storage = thereIsProductStorage();
         Product product = thereIsExampleProduct();
         storage.add(product);
-        List<Product> products = storage.allProducts();
+        List<Product> products = storage.getAllProducts();
         assertThat(products).hasSize(1).extracting(Product::getName).contains(TEST_PRODUCT_NAME);
 
     }
@@ -30,7 +30,7 @@ public class HashMapProductStorageTest {
     }
 
     @Test
-    void itLoadsAllProducts(){
+    void itLoadsGetAllProducts(){
 
     }
     @Test

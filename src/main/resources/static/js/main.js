@@ -2,6 +2,10 @@ getProducts = () => {
   return fetch("/api/products")
   .then(response => response.json());
 }
+getCurrentOffer = () => {
+    return fetch("api/current-offer")
+        .then(response => response.json());
+}
 
 const createProductHtml = (productData) => {
 

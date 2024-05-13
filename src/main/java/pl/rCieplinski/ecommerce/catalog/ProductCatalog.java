@@ -13,7 +13,7 @@ public class ProductCatalog {
     }
 
     public List<Product> allProducts(){
-        return productStorage.allProducts();
+        return productStorage.getAllProducts();
     }
 
     public String addProduct(String name, String description) {
@@ -26,7 +26,7 @@ public class ProductCatalog {
     }
 
     public Product getProductBy(String id) {
-        return productStorage.getProductBy(id);
+        return productStorage.getProductById(id);
     }
 
     public void changePrice(String id, BigDecimal newPrice) {

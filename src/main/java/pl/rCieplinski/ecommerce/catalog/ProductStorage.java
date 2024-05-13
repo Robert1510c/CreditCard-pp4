@@ -3,9 +3,9 @@ package pl.rCieplinski.ecommerce.catalog;
 import java.util.List;
 
 public interface ProductStorage {
-    List<Product> allProducts();
-
+    List<Product> getAllProducts();
+    void setUpDatabase();
     void add(Product newProduct);
 
-    Product getProductBy(String id);
+    Product getProductById(String id);
 }
