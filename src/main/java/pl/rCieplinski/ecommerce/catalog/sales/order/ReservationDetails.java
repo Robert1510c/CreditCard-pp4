@@ -1,4 +1,4 @@
-package pl.rCieplinski.ecommerce.catalog.sales;
+package pl.rCieplinski.ecommerce.catalog.sales.order;
 
 import java.math.BigDecimal;
 

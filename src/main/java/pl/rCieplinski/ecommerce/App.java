@@ -5,7 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import pl.rCieplinski.ecommerce.catalog.ProductCatalog;
 import pl.rCieplinski.ecommerce.catalog.SqlProductStorage;
+import pl.rCieplinski.ecommerce.catalog.sales.offering.OfferCalculator;
 import pl.rCieplinski.ecommerce.catalog.sales.SalesFacade;
+import pl.rCieplinski.ecommerce.catalog.sales.cart.InMemoryCartStorage;
 
 @SpringBootApplication
 public class App {
@@ -25,6 +27,6 @@ public class App {
     }
     @Bean
     SalesFacade createSales(){
-        return new SalesFacade();
+        return new SalesFacade(new InMemoryCartStorage(), new OfferCalculator());
     }
 }

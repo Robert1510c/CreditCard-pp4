@@ -2,7 +2,9 @@ package pl.rCieplinski.ecommerce.catalog.sales;
 
 import pl.rCieplinski.ecommerce.catalog.sales.cart.Cart;
 import pl.rCieplinski.ecommerce.catalog.sales.cart.InMemoryCartStorage;
-import sun.awt.geom.AreaOp;
+import pl.rCieplinski.ecommerce.catalog.sales.offering.Offer;
+import pl.rCieplinski.ecommerce.catalog.sales.offering.OfferCalculator;
+import pl.rCieplinski.ecommerce.catalog.sales.order.ReservationDetails;
 
 public class SalesFacade {
     private InMemoryCartStorage cartStorage;

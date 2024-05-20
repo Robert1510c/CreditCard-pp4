@@ -1,4 +1,4 @@
-package pl.rCieplinski.ecommerce.catalog.sales;
+package pl.rCieplinski.ecommerce.catalog.sales.offering;
 
 import pl.rCieplinski.ecommerce.catalog.sales.cart.CartLine;
 

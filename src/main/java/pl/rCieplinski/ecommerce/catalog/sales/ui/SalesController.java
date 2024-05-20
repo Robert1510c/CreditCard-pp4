@@ -1,9 +1,13 @@
-package pl.rCieplinski.ecommerce.catalog.sales;
+package pl.rCieplinski.ecommerce.catalog.sales.ui;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.rCieplinski.ecommerce.catalog.sales.SalesFacade;
+import pl.rCieplinski.ecommerce.catalog.sales.offering.Offer;
+import pl.rCieplinski.ecommerce.catalog.sales.order.ReservationDetails;
+
 @RestController
 public class SalesController {
     SalesFacade sales;

@@ -1,6 +1,10 @@
 package pl.rCieplinski.ecommerce.catalog.sales;
 
 import org.junit.jupiter.api.Test;
+import pl.rCieplinski.ecommerce.catalog.sales.cart.InMemoryCartStorage;
+import pl.rCieplinski.ecommerce.catalog.sales.offering.Offer;
+import pl.rCieplinski.ecommerce.catalog.sales.offering.OfferCalculator;
+import pl.rCieplinski.ecommerce.catalog.sales.order.ReservationDetails;
 
 import java.math.BigDecimal;
 
@@ -22,7 +26,7 @@ public class SalesTest {
         return id;
     }
     private SalesFacade thereIsSaleFacade() {
-        return new SalesFacade();
+        return new SalesFacade(new InMemoryCartStorage(), new OfferCalculator());
     }
     @Test
     void itAllowsToAddProductToCard(){
