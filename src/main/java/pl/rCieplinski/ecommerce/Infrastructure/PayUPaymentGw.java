@@ -1,6 +1,10 @@
-package pl.rCieplinski.ecommerce.catalog.sales;
+package pl.rCieplinski.ecommerce.Infrastructure;
 
-public class PayUPaymentGw implements PaymentGateway{
+import pl.rCieplinski.ecommerce.catalog.sales.payment.PaymentDetails;
+import pl.rCieplinski.ecommerce.catalog.sales.payment.PaymentGateway;
+import pl.rCieplinski.ecommerce.catalog.sales.payment.RegisterPaymentRequest;
+
+public class PayUPaymentGw implements PaymentGateway {
 
 
     @Override

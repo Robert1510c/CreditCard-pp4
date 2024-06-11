@@ -7,7 +7,7 @@ public class Offer {
         return 0;
     }
 
-    public BigDecimal getTotal(){
+    public BigDecimal getTotal() {
         return BigDecimal.ZERO;
     }
 }

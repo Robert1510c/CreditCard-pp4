@@ -1,4 +1,4 @@
-package pl.rCieplinski.ecommerce.catalog.sales;
+package pl.rCieplinski.ecommerce.catalog.sales.payment;
 
 public class PaymentDetails {
     private final String url;

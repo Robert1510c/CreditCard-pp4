@@ -9,53 +9,64 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import pl.rCieplinski.ecommerce.catalog.ProductCatalog;
-import pl.rCieplinski.ecommerce.catalog.sales.offering.AcceptOfferRequest;
-import pl.rCieplinski.ecommerce.catalog.sales.order.ReservationDetails;
+import pl.rCieplinski.ecommerce.catalog.sales.reservation.AcceptOfferRequest;
+import pl.rCieplinski.ecommerce.catalog.sales.offering.Offer;
+import pl.rCieplinski.ecommerce.catalog.sales.reservation.ReservationDetails;
+import static org.assertj.core.api.Assertions.*;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SalesHTTPTest {
+public class SalesHttpTest {
     @LocalServerPort
     int port;
+
     @Autowired
     TestRestTemplate http;
+
     @Autowired
     ProductCatalog catalog;
 
     @Test
-    void itAcceptOfferHappyPath(){
-        var productId = thereIsExampleProduct("Example product", BigDecimal.valueOf(10));
-        //ACT
-        //add to cart
-        var uri = String.format("api/add-to-cart", productId);
-        var addProductToCartUrl = String.format("http://localhost:%s/%s", port, uri);
-        http.postForEntity(addProductToCartUrl, null, Object.class);
+    void checkoutHappyPath() {
+        String productId = thereIsProduct("Example", BigDecimal.valueOf(10.10));
+        var addToCartUrl = asBaseURL(String.format("api/add-product/%s", productId));
 
-        //ACT 2
-        //Accept offer
-        AcceptOfferRequest acceptOfferRequest = new AcceptOfferRequest();
+        ResponseEntity<Object> addToCartResponse = http.postForEntity(addToCartUrl, null, null);
+
+        var getCurrentOfferUrl = asBaseURL("api/current-offer");
+        ResponseEntity<Offer> offerResponse = http.getForEntity(getCurrentOfferUrl, Offer.class);
+
+        var acceptOfferUrl = asBaseURL("api/accept-offer");
+        var acceptOfferRequest = new AcceptOfferRequest();
         acceptOfferRequest
-                .setFirstname("Robert")
-                .setLastname("Cieplinski")
-                .setEmail("robert.cieplinski@example.com");
+                .setFirstname("john")
+                .setLastname("doe")
+                .setEmail("john.doe@example.com");
 
-        var acceptOfferURL = String.format("http://localhost:%s/%s", port , "api/accept-offer");
-        http.postForEntity(acceptOfferURL, acceptOfferRequest, ReservationDetails.class);
-        ResponseEntity<ReservationDetails> reservationResponse= http.postForEntity(
-                acceptOfferURL, acceptOfferRequest, ReservationDetails.class);
+        ResponseEntity<ReservationDetails> reservationResponse = http.postForEntity(
+                acceptOfferUrl, acceptOfferRequest, ReservationDetails.class);
 
-        assertEquals(HttpStatus.OK, reservationResponse.getStatusCode());
-        assertEquals(BigDecimal.valueOf(10), reservationResponse.getBody().getTotal());
-        assertNotNull(reservationResponse.getBody().getReservationById());
-        assertNotNull(reservationResponse.getBody().getPaymentURL());
+        var reservationDetails =reservationResponse.getBody();
+
+        assertThat(addToCartResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(offerResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(reservationResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        assertThat(reservationDetails.getPaymentUrl()).isNotBlank();
+        assertThat(reservationDetails.getReservationId()).isNotBlank();
+
+
     }
 
-    private Object thereIsExampleProduct(String name, BigDecimal price) {
-        var prodId = catalog.addProduct(name, name);
-        catalog.changePrice(prodId, price);
-        return prodId;
+    private String asBaseURL(String addToCartUri) {
+        return String.format("http://localhost:%s/%s", port, addToCartUri);
+    }
+
+    private String thereIsProduct(String name, BigDecimal price) {
+        var id = catalog.addProduct(name, name);
+        catalog.changePrice(id, price);
+
+        return id;
     }
 }

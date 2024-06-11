@@ -1,6 +1,6 @@
-package pl.rCieplinski.ecommerce.catalog.sales;
+package pl.rCieplinski.ecommerce.catalog.sales.payment;
 
-import pl.rCieplinski.ecommerce.catalog.sales.offering.AcceptOfferRequest;
+import pl.rCieplinski.ecommerce.catalog.sales.reservation.AcceptOfferRequest;
 
 import java.math.BigDecimal;
 

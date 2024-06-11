@@ -1,16 +1,14 @@
-package pl.rCieplinski.ecommerce.catalog.sales.ui;
+package pl.rCieplinski.ecommerce.catalog.sales;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import pl.rCieplinski.ecommerce.catalog.sales.SalesFacade;
+import org.springframework.web.bind.annotation.*;
+import pl.rCieplinski.ecommerce.catalog.sales.reservation.AcceptOfferRequest;
 import pl.rCieplinski.ecommerce.catalog.sales.offering.Offer;
-import pl.rCieplinski.ecommerce.catalog.sales.order.ReservationDetails;
+import pl.rCieplinski.ecommerce.catalog.sales.reservation.ReservationDetails;
 
 @RestController
 public class SalesController {
     SalesFacade sales;
+
     public SalesController(SalesFacade sales) {
         this.sales = sales;
     }
@@ -22,15 +20,14 @@ public class SalesController {
     }
 
     @PostMapping("/api/accept-offer")
-    ReservationDetails acceptOffer(){
-        String customerId = getCurrentCustomerId();
-        ReservationDetails details = sales.acceptOffer(customerId);
-        return details;
+    ReservationDetails acceptOffer(@RequestBody AcceptOfferRequest acceptOfferRequest ){
+        var customerId = getCurrentCustomerId();
+        return sales.acceptOffer(customerId, acceptOfferRequest);
     }
-    @PostMapping("/api/add-to-cart/{productId}")
-    void addToCart(@PathVariable String productId){
-        String customerId = getCurrentCustomerId();
-        sales.addToCart(customerId, productId);
+    @PostMapping("/api/add-product/{productId}")
+    void addProduct(@PathVariable String productId){
+        var customerId = getCurrentCustomerId();
+        sales.addProduct(customerId, productId);
     }
 
 

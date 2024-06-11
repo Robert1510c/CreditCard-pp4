@@ -1,10 +1,12 @@
 package pl.rCieplinski.ecommerce.catalog.sales;
 
 import org.junit.jupiter.api.Test;
-import pl.rCieplinski.ecommerce.catalog.sales.cart.InMemoryCartStorage;
+import pl.rCieplinski.ecommerce.catalog.sales.cart.CartStorage;
 import pl.rCieplinski.ecommerce.catalog.sales.offering.Offer;
 import pl.rCieplinski.ecommerce.catalog.sales.offering.OfferCalculator;
-import pl.rCieplinski.ecommerce.catalog.sales.order.ReservationDetails;
+import pl.rCieplinski.ecommerce.catalog.sales.reservation.ReservationDetails;
+import pl.rCieplinski.ecommerce.catalog.sales.reservation.ReservationRepository;
+import pl.rCieplinski.ecommerce.catalog.sales.reservation.SpyPaymentGateway;
 
 import java.math.BigDecimal;
 
@@ -13,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SalesTest {
     @Test
     void itShowsOffers(){
-        SalesFacade sales = thereIsSaleFacade();
+        SalesFacade sales = thereIsSales();
         String customerId = thereIsExampleCustomer("Robert");
 
         Offer offer = sales.getCurrentOffer(customerId);
@@ -25,16 +27,21 @@ public class SalesTest {
     private String thereIsExampleCustomer(String id) {
         return id;
     }
-    private SalesFacade thereIsSaleFacade() {
-        return new SalesFacade(new InMemoryCartStorage(), new OfferCalculator());
+    private SalesFacade thereIsSales() {
+        return new SalesFacade(
+                new CartStorage(),
+                new OfferCalculator(),
+                new SpyPaymentGateway(),
+                new ReservationRepository()
+        );
     }
     @Test
     void itAllowsToAddProductToCard(){
         String productId = thereIsProduct("Example", BigDecimal.valueOf(10));
         String customerId = thereIsExampleCustomer("Robert");
-        SalesFacade sales = thereIsSaleFacade();
+        SalesFacade sales = thereIsSales();
 
-        sales.addToCart(customerId, productId);
+        sales.addProduct(customerId, productId);
         Offer offer = sales.getCurrentOffer(customerId);
 
         assertEquals(1, offer.getItemsCount());
@@ -46,10 +53,10 @@ public class SalesTest {
         String productA = thereIsProduct("Example", BigDecimal.valueOf(10));
         String productB = thereIsProduct("Example", BigDecimal.valueOf(20));
         String customerId = thereIsExampleCustomer("Robert");
-        SalesFacade sales = thereIsSaleFacade();
+        SalesFacade sales = thereIsSales();
 
-        sales.addToCart(customerId, productA);
-        sales.addToCart(customerId, productB);
+        sales.addProduct(customerId, productA);
+        sales.addProduct(customerId, productB);
         Offer offer = sales.getCurrentOffer(customerId);
 
         assertEquals(2, offer.getItemsCount());
@@ -62,10 +69,10 @@ public class SalesTest {
         String productB = thereIsProduct("Example", BigDecimal.valueOf(20));
         String customerA = thereIsExampleCustomer("Robert");
         String customerB = thereIsExampleCustomer("Maciek");
-        SalesFacade sales = thereIsSaleFacade();
+        SalesFacade sales = thereIsSales();
 
-        sales.addToCart(customerA, productA);
-        sales.addToCart(customerB, productB);
+        sales.addProduct(customerA, productA);
+        sales.addProduct(customerB, productB);
         Offer offerA = sales.getCurrentOffer(customerA);
         Offer offerB = sales.getCurrentOffer(customerB);
 
@@ -85,16 +92,16 @@ public class SalesTest {
     public void itAllowsAddToCard(){
 
     }
-    @Test
-    public void itAllowsToAcceptOffer(){
-        String productId = thereIsProduct("Example", BigDecimal.valueOf(10));
-        String customerId = thereIsExampleCustomer("Robert");
-        SalesFacade sales = thereIsSaleFacade();
+//    @Test
+//    public void itAllowsToAcceptOffer(){
+//        String productId = thereIsProduct("Example", BigDecimal.valueOf(10));
+//        String customerId = thereIsExampleCustomer("Robert");
+//        SalesFacade sales = thereIsSales();
+//
+//        sales.addProduct(customerId, productId);
+//        ReservationDetails reservationDetails = sales.acceptOffer(customerId);
+//
+//        //tu czegoś brakuje
+//      }
 
-        sales.addToCart(customerId, productId);
-        ReservationDetails reservationDetails = sales.acceptOffer(customerId);
-
-        //tu czegoś brakuje
-
-    }
 }

@@ -1,4 +1,4 @@
-package pl.rCieplinski.ecommerce.catalog.sales.offering;
+package pl.rCieplinski.ecommerce.catalog.sales.reservation;
 
 public class AcceptOfferRequest {
     String firstname;

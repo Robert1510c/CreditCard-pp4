@@ -1,19 +1,22 @@
-package pl.rCieplinski.ecommerce.catalog.sales.order;
+package pl.rCieplinski.ecommerce.catalog.sales.reservation;
 
 import java.math.BigDecimal;
 
 public class ReservationDetails {
 
+    private final String reservationId;
+    private final String paymentUrl;
 
-    public BigDecimal getTotal() {
-        return BigDecimal.ZERO;
+    public ReservationDetails(String reservationId, String paymentUrl) {
+        this.reservationId = reservationId;
+        this.paymentUrl = paymentUrl;
     }
 
-    public String getReservationById() {
-        return "123abc";
+    public String getReservationId() {
+        return reservationId;
     }
 
-    public String getPaymentURL() {
-        return "";
+    public String getPaymentUrl() {
+        return paymentUrl;
     }
 }

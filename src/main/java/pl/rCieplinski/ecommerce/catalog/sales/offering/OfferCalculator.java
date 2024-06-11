@@ -6,6 +6,8 @@ import java.util.List;
 
 public class OfferCalculator {
     public Offer calculate(List<CartLine> lines) {
-        return null;
+        // every Xth free
+        //>100PLN -10PLN
+        return new Offer();
     }
 }
