@@ -55,14 +55,16 @@ public class SalesFacade {
     }
 
     public void addProduct(String customerId, String productId) {
-        Cart cart = cartStorage.loadForCustomer(customerId)
+        Cart cart = cartStorage.getForCustomer(customerId)
                 .orElse(Cart.empty());
 
         cart.addProduct(productId);
+
+        cartStorage.save(customerId, cart);
     }
 
     private Cart loadCartForCustomer(String customerId) {
-        return cartStorage.findByCustomerId(customerId)
+        return cartStorage.getForCustomer(customerId)
                 .orElse(Cart.empty());
     }
 }

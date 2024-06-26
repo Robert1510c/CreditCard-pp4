@@ -3,11 +3,27 @@ package pl.rCieplinski.ecommerce.catalog.sales.offering;
 import java.math.BigDecimal;
 
 public class Offer {
-    public int getItemsCount(){
-        return 0;
+
+    private final BigDecimal total;
+    private final int itemsCount;
+
+    public Offer(BigDecimal total, int itemsCount) {
+        this.total = total;
+        this.itemsCount = itemsCount;
     }
 
     public BigDecimal getTotal() {
-        return BigDecimal.ZERO;
+        return total;
     }
+
+    public int getItemsCount() {
+        return itemsCount;
+    }
+    //    public int getItemsCount(){
+//        return 0;
+//    }
+
+//    public BigDecimal getTotal() {
+//        return BigDecimal.ZERO;
+//    }
 }

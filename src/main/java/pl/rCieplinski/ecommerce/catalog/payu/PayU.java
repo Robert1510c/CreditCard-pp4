@@ -43,7 +43,7 @@ public class PayU {
         HttpEntity<String> request = new HttpEntity<>(body, headers);
 
         ResponseEntity<AccesTokenResponse> atResponse =  http.postForEntity(
-                String.format("%s/pl/standart/user/oauth/authorize", payUCredentials.getBaseUrl()),
+                String.format("%s/pl/standard/user/oauth/authorize", payUCredentials.getBaseUrl()),
                 request,
                 AccesTokenResponse.class
         );

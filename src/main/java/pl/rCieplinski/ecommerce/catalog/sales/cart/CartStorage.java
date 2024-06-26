@@ -1,13 +1,21 @@
 package pl.rCieplinski.ecommerce.catalog.sales.cart;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class CartStorage {
-    public Optional<Cart> findByCustomerId(String customerId) {
-        return Optional.empty();
+    Map<String, Cart> carts;
+
+    public CartStorage() {
+        this.carts = new HashMap<>();
+    }
+    public Optional<Cart> getForCustomer(String customerId) {
+        return Optional.ofNullable(carts.get(customerId));
     }
 
-    public Optional<Cart> loadForCustomer(String customerId) {
-        return Optional.empty();
+    public void save(String customerId, Cart cart) {
+        carts.put(customerId, cart);
     }
+
 }

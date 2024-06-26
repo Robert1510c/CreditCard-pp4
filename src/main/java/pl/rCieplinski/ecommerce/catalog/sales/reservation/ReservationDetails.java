@@ -4,12 +4,15 @@ import java.math.BigDecimal;
 
 public class ReservationDetails {
 
-    private final String reservationId;
-    private final String paymentUrl;
+    private String reservationId;
+    private String paymentUrl;
+
 
     public ReservationDetails(String reservationId, String paymentUrl) {
         this.reservationId = reservationId;
         this.paymentUrl = paymentUrl;
+    }
+    public ReservationDetails() {
     }
 
     public String getReservationId() {
